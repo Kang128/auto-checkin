@@ -231,7 +231,7 @@ async function getRefreshToken() {
 
       let sendMessage = await sign_in(access_token, remarks)
       const result = await getPkTeam(access_token)
-      if (!result.joinTeam) {
+      if (result?.id && !result?.joinTeam) {
         // 通过查询接口获取 id
         const data = {
           id: result.id,

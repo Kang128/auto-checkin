@@ -1,3 +1,7 @@
+/*
+cron "0 9 * * *" oclean.js, tag=欧可琳牙刷签到
+*/
+
 const axios = require('axios')
 const notify = require('../sendNotify')
 const { initInstance, getEnv, updateCkEnv } = require('./qlApi.js')
@@ -95,7 +99,7 @@ const checkIn = async (accessToken, checkType, whichDay) => {
   try {
     const { data } = await axios(getUrl('/CheckIn/CheckIn'), {
       method: 'POST',
-      data: { checkType: checkType, whichDay: whichDay },
+      data: { checkType: checkType, whichDay },
       headers: {
         ...headers,
         Authorization: accessToken
@@ -140,7 +144,7 @@ const checkIn = async (accessToken, checkType, whichDay) => {
       const { dateNow, dateNowIndex } = await getCheckInfo(access_token)
       const info = await checkIn(access_token, 0, dateNowIndex)
 
-      let sendMessage = `${remarks},${dateNow},${info}`
+      let sendMessage = `${dateNow}，${remarks}，${info}`
 
       console.log(sendMessage)
       console.log('\n')
